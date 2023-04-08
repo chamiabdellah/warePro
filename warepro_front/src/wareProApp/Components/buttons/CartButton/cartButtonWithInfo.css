@@ -1,0 +1,17 @@
+.cartButton{
+    position: absolute;
+    right: 20px;
+    top : 10px;
+}
+
+.cartDivision{
+    width: 35vw;
+    height: 80vh;
+    border: #405252 solid 1px;
+}
+
+.validationButtons{
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+}

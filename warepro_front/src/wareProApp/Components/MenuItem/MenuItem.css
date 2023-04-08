@@ -1,0 +1,12 @@
+.menuItem{
+    color: #405252;
+    width: 30%;
+    height: 40%;
+    border: #0f50d7 1px solid;
+    border-radius: 2em;
+    padding: 3em 2em;
+}
+
+.menuItemText{
+    font-size: 5vw;
+}
