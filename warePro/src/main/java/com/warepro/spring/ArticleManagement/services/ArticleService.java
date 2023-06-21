@@ -25,6 +25,7 @@ public class ArticleService {
 
         if(article != null) {
             article.incrementQuantity(incrementBy.toBigInteger());
+            this.articleRepository.save(article);
         }
 
     }

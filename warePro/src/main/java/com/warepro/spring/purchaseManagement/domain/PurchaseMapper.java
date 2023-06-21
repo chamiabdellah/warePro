@@ -41,7 +41,7 @@ public class PurchaseMapper {
 
         purchase.setListOfPurchases(listPurchaseLineDTO.stream().map(this::toPurchaseLineEntity).toList());
 
-        purchase.setTotalAmount(purchase.calculateTotalAmount());
+        purchase.calculateTotalAmount();
 
         return purchase;
     }

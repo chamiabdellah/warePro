@@ -22,18 +22,12 @@ export default function CartButtonWithInfo(){
        totalAmount += articleOfCart.article.price * articleOfCart.cartQuantity;
     })
 
-    const cancelPurchase = () => {
+    const deletePurchase = () => {
         // save a new state (new Cart).
         setCart((prev)=>[new Cart()]);
     }
 
-    const confirmPurchase = () => {
-        const endpointURL = "http://localhost:8080/api/purchases";
-        const requestOptions = {
-            method:'PUT',
-            headers: {'Content-Type': 'application/json','Accept': 'application/json'},
-        };
-
+    const confirmPurchase = async () => {
         /*
             the format of the purchase is as follows :
                 * - List of elements, and for each line :
@@ -41,7 +35,20 @@ export default function CartButtonWithInfo(){
                     * quantity
            And in return we will get the saved object and the status code.
          */
-
+        const endpointURL = "http://localhost:8080/api/purchases";
+        const requestOptions = {
+            method:'PUT',
+            headers: {'Content-Type': 'application/json','Accept': 'application/json'},
+            body : JSON.stringify(cart[0].listOfPurchaseArticles.map(cartLine => {
+                return {article: cartLine.articleId, quantity: cartLine.cartQuantity}
+            })),
+        };
+        const response = await fetch(endpointURL, requestOptions);
+        console.log(response);
+        if(response.status === 200){
+            const validatedArticles = await response.json();
+            deletePurchase();
+        }
 
     }
 
@@ -56,7 +63,7 @@ export default function CartButtonWithInfo(){
                 })}
 
             <div className="validationButtons">
-                <button onClick={cancelPurchase}>CANCEL</button>
+                <button onClick={deletePurchase}>CANCEL</button>
                 <button onClick={confirmPurchase}>BUY</button>
             </div>
             </div>

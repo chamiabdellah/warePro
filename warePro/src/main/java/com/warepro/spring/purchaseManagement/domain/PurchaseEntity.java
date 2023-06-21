@@ -46,7 +46,7 @@ public class PurchaseEntity {
     @PrePersist
     private void onCreate(){
         this.setCreationDate(LocalDate.now());
-        this.setTotalAmount(calculateTotalAmount());
+        this.calculateTotalAmount();
     }
 
     public BigDecimal calculateTotalAmount(){
@@ -58,7 +58,7 @@ public class PurchaseEntity {
             subTotal.setTotalAmount(newTotal);
             return subTotal;
         });
-
-        return purchaseTotal.isPresent() ? purchaseTotal.get().getTotalAmount() : new BigDecimal("0");
+        this.setTotalAmount(purchaseTotal.isPresent() ? purchaseTotal.get().getTotalAmount() : new BigDecimal("0"));
+        return this.getTotalAmount();
     }
 }
